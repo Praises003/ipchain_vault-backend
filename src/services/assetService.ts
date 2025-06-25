@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from "../generated/prisma";
 import cloudinary from '../utils/cloudinary';
 import crypto from 'crypto';
 import fs from 'fs';
