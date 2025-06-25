@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "prestart": "npm run prisma:generate", 
-    "build": "tsc", 
+    "build": "npm run prisma:generate && tsc", 
     "start": "node dist/index.js", 
     "prisma:generate": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev",
