@@ -1,6 +1,6 @@
 // File: /src/services/marketplaceService.ts
 
-import { PrismaClient } from "../generated/prisma";
+import { PrismaClient } from '@prisma/client';
 import { Decimal } from "@prisma/client/runtime/library";
 import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY! || "", {
