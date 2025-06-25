@@ -1,11 +1,11 @@
 {
   "name": "ipchain_vault_backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "prebuild": "rimraf dist", // Optional: cleans old build output (install rimraf: npm i -D rimraf)
-    "build": "tsc", // Compiles TypeScript
-    "start": "node dist/index.js", // Runs the compiled JavaScript file
+    "prebuild": "rimraf dist",
+    "build": "tsc", 
+    "start": "node dist/index.ts", 
     "prisma:generate": "prisma generate",
     "prisma:migrate:dev": "prisma migrate dev",
     "prisma:push": "prisma db push",
