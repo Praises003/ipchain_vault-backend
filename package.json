@@ -3,6 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "prebuild": "rimraf dist", // Optional: cleans old build output (install rimraf: npm i -D rimraf)
+    "build": "tsc", // Compiles TypeScript
+    "start": "node dist/index.js", // Runs the compiled JavaScript file
+    "prisma:generate": "prisma generate",
+    "prisma:migrate:dev": "prisma migrate dev",
+    "prisma:push": "prisma db push",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts"
   },
