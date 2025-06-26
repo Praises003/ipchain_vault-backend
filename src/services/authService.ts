@@ -348,6 +348,7 @@ export const getUserDetailsService = async (userId: string):Promise<any> => {
       id: true,
       name: true,
       email: true,
+      
   
       verified: true,
     },
