@@ -1,11 +1,16 @@
 import {Request, Response} from "express"
 import { sign, verify } from "jsonwebtoken";
 import { PrismaClient } from '@prisma/client';
-import { registerUser, loginUser, resetPasswordService, logoutUserService, } from "../services/authService";
+import { registerUser, loginUser, resetPasswordService, logoutUserService,getUserDetailsService } from "../services/authService";
 import { registerUserSchema, loginUserSchema, forgotPasswordSchema, resetPasswordSchema, resendOtpSchema } from "../validators/authSchemas";
 import setRefreshTokenCookie  from "../utils/setRefreshTokenCookie";
 import { verifyUserOtpService, forgotPasswordService, resendVerificationOtp } from "../services/authService";
 import { sendMail } from "../utils/sendMail";
+import { AuthPayload } from '../middlewares/authMiddleware';
+
+interface AuthenticatedRequest extends Request {
+  user: AuthPayload;  // required, not optional here
+}
 
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || "access-secret";
@@ -190,5 +195,27 @@ export const logout = async (req: Request, res: Response): Promise<any> => {
     return res.status(200).json({ message: "Logged out successfully" });
   } catch (error: any) {
     return res.status(500).json({ message: "Logout failed", error: error.message });
+  }
+};
+
+
+export const checkAuth = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const userAuth = (req as AuthenticatedRequest).user;
+    if (!userAuth || !userAuth.userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    const user = await getUserDetailsService(userAuth.userId);
+    
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    return res.status(200).json({ user });
+  } catch (error: any) {
+    console.error("checkAuth error:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
