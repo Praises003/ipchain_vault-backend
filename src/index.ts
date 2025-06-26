@@ -16,9 +16,13 @@ const app: Express = express();
 
 
 
+const corsOptions = {
+    origin: ['http://localhost:3000',"https://ip-vault.vercel.app", ],
+    credentials: true,
+    exposedHeaders: ["set-cookie"]
+  };
 
-
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
