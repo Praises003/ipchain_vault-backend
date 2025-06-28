@@ -21,8 +21,8 @@ interface User {
 const prisma = new PrismaClient();
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET || "access-secret";
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "refresh-secret";
-const ACCESS_EXPIRES_IN = process.env.ACCESS_EXPIRES_IN || "7m"
-const REFRESH_EXPIRES_IN = process.env.REFRESH_EXPIRES_IN || "5d"
+//const ACCESS_EXPIRES_IN = process.env.ACCESS_EXPIRES_IN || "10h"
+//const REFRESH_EXPIRES_IN = process.env.REFRESH_EXPIRES_IN || "5d"
 
 
 
@@ -137,7 +137,7 @@ export const verifyUserOtpService = async (email: string, otp: string): Promise<
   });
 
   const accessToken = sign({ userId: user.id, email: user.email }, ACCESS_TOKEN_SECRET, {
-    expiresIn: "15m",
+    expiresIn: "10h",
   });
 
   const refreshToken = sign({ userId: user.id }, REFRESH_TOKEN_SECRET, {
@@ -175,7 +175,7 @@ export const loginUser = async (email: string, password: string):Promise<{ user:
   const accessToken = sign(
     { userId: user.id, email: user.email },
     ACCESS_TOKEN_SECRET,
-    { expiresIn: "15m" }
+    { expiresIn: "10h" }
   );
 
   const refreshToken = sign(
