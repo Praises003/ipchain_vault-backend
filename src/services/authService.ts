@@ -137,7 +137,7 @@ export const verifyUserOtpService = async (email: string, otp: string): Promise<
   });
 
   const accessToken = sign({ userId: user.id, email: user.email }, ACCESS_TOKEN_SECRET, {
-    expiresIn: "10h",
+    expiresIn: "5m",
   });
 
   const refreshToken = sign({ userId: user.id }, REFRESH_TOKEN_SECRET, {
@@ -175,13 +175,13 @@ export const loginUser = async (email: string, password: string):Promise<{ user:
   const accessToken = sign(
     { userId: user.id, email: user.email },
     ACCESS_TOKEN_SECRET,
-    { expiresIn: "10h" }
+    { expiresIn: "5m" }
   );
 
   const refreshToken = sign(
     { userId: user.id },
     REFRESH_TOKEN_SECRET,
-    { expiresIn: "5d" }
+    { expiresIn: "7d" }
   );
 
   // Store or rotate refresh token in DB
